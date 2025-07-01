@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Memory Game - Online</title>
+  <link rel="stylesheet" href="style.css" />
+  <script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
+</head>
+<body>
+    <!-- Loading Screen -->
+    <div id="loadingScreen" style="display:flex; justify-content:center; align-items:center; height:100vh; font-size:2rem;">
+    🔄 Loading Online Mode...
+    </div>
+
+    <!-- Main UI -->
+    <div id="mainUI" style="display:none;">
+        <input type="text" id="playerNameInput" placeholder="Enter Your Name" />
+        <div id="roomSection">
+            <input type="text" id="roomCodeInput" placeholder="Enter Room Code" />
+            <button onclick="joinRoom()">Join Room</button>
+            <button onclick="createRoom()">Create Room</button>
+        </div>
+    </div>
+
+    <!-- QR Output -->
+    <div id="qrcodeBox" style="display:none; margin-top: 1rem;">
+    <p>📲 Share QR to Join:</p>
+    <canvas id="qrcode"></canvas>
+    </div>
+    <p class="description">Challenge your friends in real-time! Enter a room code to join or create a new room.</p>
+    <button onclick="toggleInstructions()" style="margin-bottom: 1rem;">📘 How to Play</button>
+
+    <div id="instructionsBox" style="display:none; padding: 1rem; border: 1px solid #000000; background: #000000;">
+        <h3>🧠 Memory Game Instructions:</h3>
+        <ol>
+            <li>Enter your name(s) and select mode (Computer / Friends / Online).</li>
+            <li>Select a category of cards.</li>
+            <li>Click cards to flip and match pairs.</li>
+            <li>Match more pairs than opponent to win.</li>
+            <li>In Online Mode:
+            <ul>
+                <li>Create a room and share the code.</li>
+                <li>Both players will see turns and scores live.</li>
+            </ul>
+            </li>
+            <li>Use hamburger menu to toggle sound, fullscreen, or view rank.</li>
+        </ol>
+    </div>
+
+  <!-- Game Board + Players -->
+  <div id="onlineGame" style="display:none;">
+    <div class="scoreboard">
+      <div class="player" id="player1Display">
+        <strong id="player1Name">Player 1</strong>
+        <p id="player1Score">0</p>
+      </div>
+      <div class="player" id="player2Display">
+        <strong id="player2Name">Player 2</strong>
+        <p id="player2Score">0</p>
+      </div>
+    </div>
+
+    <div class="game-board" id="gameBoard"></div>
+    <p id="statusText">Waiting for opponent...</p>
+  </div>
+
+  <div id="popup" style="display:none;" class="popup">
+    <h2 id="popupMessage">You Win!</h2>
+    <button onclick="resetGame()">🔁 Play Again</button>
+    <button onclick="quitGame()">❌ Quit</button>
+  </div>
+
+
+    <script src="https://memorygame-server.onrender.com/socket.io/socket.io.js"></script>
+    <script src="online.js"></script>
+</body>
+</html>
